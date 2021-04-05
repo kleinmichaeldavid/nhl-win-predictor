@@ -1,0 +1,4 @@
+INSERT OR IGNORE INTO xtablex
+(xkeysx)
+VALUES
+xvaluesx
