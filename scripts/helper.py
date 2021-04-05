@@ -1,5 +1,6 @@
 
 import sqlite3
+import re
 
 def create_database_connection(path):
 
