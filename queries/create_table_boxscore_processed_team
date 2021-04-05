@@ -1,10 +1,11 @@
 CREATE TABLE IF NOT EXISTS boxscore_processed_team (
     game_id CHAR(10),
     datetime DATETIME,
+    season INT,
     franchise_id INT,
     games_played_before INT,
     games_played_after INT,
-    win BOOL,
+    win INT,
     wins_after INT,
     wins_before INT,
     losses_before INT,
