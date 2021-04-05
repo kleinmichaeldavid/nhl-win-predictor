@@ -164,7 +164,7 @@ def add_boxscore_to_db(season, season_segment, game_number, conn, cursor):
             dict_data = extract_boxscore_data(data)
 
             ## add data
-            execute_query(PATH_QUERIES / 'create_table_boxscore', cursor)
+            execute_query(PATH_QUERIES/'create_table_boxscore', cursor)
             execute_query(PATH_QUERIES/'insert_entry_boxscore', cursor,
                           values = tuple(dict_data.values()),
                           replacements = {'xkeysx' : ', '.join(list(dict_data.keys())), 'xvaluesx' : ', '.join(['?'] * len(dict_data.keys()))})
