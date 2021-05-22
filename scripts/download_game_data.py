@@ -8,7 +8,6 @@ from 2010 to 2019, saving the data in a SQLite3 db located at PATH_DB.
 
 from requests import get
 from pathlib import Path
-import re
 import pandas as pd
 from time import sleep
 
