@@ -1,14 +1,14 @@
 
 """
 This script processes the downloaded raw live feed data for a given season into a format
-more suitable for building ML models (e.g. computes cumulative stats for each team rather
+more suitable for building ML models (e.g. computes cumulative stats for each team
 over the season).
 """
 
 ## SETUP ##
 
 from pathlib import Path
-import pandas as pd; pd.options.mode.chained_assignment = None  # default='warn', avoids SettingWithCopyWarning
+import pandas as pd
 import numpy as np
 from copy import deepcopy
 import re
@@ -18,7 +18,7 @@ from scripts.helper import create_database_connection, execute_query
 PATH_DB = Path('data/raw/nhl.db')
 PATH_QUERIES = Path('queries')
 
-SEASONS_TO_PROCESS = [2019]
+SEASONS_TO_PROCESS = np.arange(2010, 2020)
 SEASON_SEGMENT = 2 # regular season
 STATS_TO_PROCESS = ['shots', 'goals', 'pim', 'pp_goals', 'pp_attempts', 'fo_percent', 'blocks', 'takeaways', 'giveaways', 'hits']
 
