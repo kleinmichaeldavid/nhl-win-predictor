@@ -160,6 +160,7 @@ def add_boxscore_to_db(season, season_segment, game_number, conn, cursor):
             return 1 ## this occurs when the game already exists in the database
 
         else: ## in this case we actually add the game
+            print(f'Game {game_code} added to database.')
             dict_data = extract_boxscore_data(data)
 
             ## add data
