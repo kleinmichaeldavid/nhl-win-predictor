@@ -18,8 +18,7 @@ from scripts.helper import create_database_connection, execute_query
 PATH_DB = Path('data/raw/nhl.db')
 PATH_QUERIES = Path('queries')
 
-SEASONS_TO_PROCESS = np.arange(2010, 2020)
-SEASON_SEGMENT = 2 # regular season
+SEASONS_TO_PROCESS = np.arange(2010, 2021)
 STATS_TO_PROCESS = ['shots', 'goals', 'pim', 'pp_goals', 'pp_attempts', 'fo_percent', 'blocks', 'takeaways', 'giveaways', 'hits']
 
 ## FUNCTIONS ##
@@ -82,7 +81,7 @@ def process_season_feed_data(season, conn, cursor):
     :return: no return
     """
 
-    query_str = f"SELECT * from boxscore WHERE season = {season} AND game_type = {SEASON_SEGMENT}"
+    query_str = f"SELECT * from boxscore WHERE season = {season} AND game_type IN (2,3)" ## ignore pre-season (game_type = 1)
     df_season = pd.read_sql_query(query_str, conn)
     all_teams = df_season['home_franchise_id'].unique()
 
