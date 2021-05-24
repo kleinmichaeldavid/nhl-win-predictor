@@ -16,7 +16,7 @@ PATH_DB = Path('data/raw/nhl.db')
 PATH_DATA_PROCESSED = Path('data/processed')
 PATH_QUERIES = Path('queries')
 WEIGHT_PREV_SEASON = 10 # consider previous season to be equivalent to this many games
-SEASONS = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020] ## seasons to train model on
+SEASONS = np.arange(2011, 2021)
 
 ## FUNCTIONS ##
 
