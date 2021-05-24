@@ -127,7 +127,7 @@ for season in SEASONS:
                                    values=tuple(game_dict.values()),
                                    replacements={'xtablex' : 'mlfeatures',
                                                  'xkeysx': ', '.join(list(game_dict.keys())),
-                                                 'xvaluesx': ', '.join(['?'] * len(game_dict.keys()))})
+                                                 'xvaluesx': '(' + ', '.join(['?'] * len(game_dict.keys())) + ')'})
        conn.commit()
 
 
