@@ -175,12 +175,14 @@ def add_boxscore_to_db(season, season_segment, game_number, conn, cursor):
 
 ## SCRIPT ##
 
+SEASONS = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+
 if __name__ == "__main__":
 
     conn, cursor = create_database_connection(PATH_DB)
 
     print('downloading regular season game data...')
-    for season in [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]:
+    for season in SEASONS:
         print(season)
         cont = True
         game = 0
@@ -190,7 +192,7 @@ if __name__ == "__main__":
             cont = add_boxscore_to_db(season, 2, game, conn, cursor) ## True if the game exists / is complete, False otherwise
 
     print('downloading post-season game data...')
-    for season in [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]:
+    for season in SEASONS:
         print(season)
         for round in [1,2,3,4]:
             series = 0
