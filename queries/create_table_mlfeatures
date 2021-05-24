@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS mlfeatures (
+    game_id CHAR(10),
+    game_type INT,
+    season INT,
+    datetime DATETIME,
+    away_franchise_id INT,
+    home_franchise_id INT,
+    home_win BOOL,
+    wins_per_game_home FLOAT,
+    wins_per_game_away FLOAT,
+    goals_for_per_game_home FLOAT,
+    goals_for_per_game_away FLOAT,
+    goals_against_per_game_home FLOAT,
+    goals_against_per_game_away FLOAT,
+    shots_for_per_game_home FLOAT,
+    shots_for_per_game_away FLOAT,
+    shots_against_per_game_home FLOAT,
+    shots_against_per_game_away FLOAT,
+    UNIQUE(game_id)
+);
