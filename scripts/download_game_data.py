@@ -160,6 +160,7 @@ def add_boxscore_to_db(season, season_segment, game_number, conn, cursor):
             return 1 ## this occurs when the game already exists in the database
 
         else: ## in this case we actually add the game
+            sleep(1)
             print(f'Game {game_code} added to database.')
             dict_data = extract_boxscore_data(data)
 
@@ -187,7 +188,6 @@ if __name__ == "__main__":
         cont = True
         game = 0
         while cont:
-            sleep(1)
             game += 1
             cont = add_boxscore_to_db(season, 2, game, conn, cursor) ## True if the game exists / is complete, False otherwise
 
@@ -201,7 +201,6 @@ if __name__ == "__main__":
                 series += 1
                 game_number = 0
                 while cont:
-                    sleep(1)
                     game_number += 1
                     game_num = '0' + str(round) + str(series) + str(game_number) ## game id more complex for playoffs than reg seson
                     cont = add_boxscore_to_db(season, 3, game_num, conn, cursor)
