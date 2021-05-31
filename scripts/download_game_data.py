@@ -146,6 +146,8 @@ def add_boxscore_to_db(season, season_segment, game_number, conn, cursor):
     game_code, game_url = generate_game_url(season, season_segment, game_number)
     data = download_page(game_url)
 
+    add_game = False ## flag indicating whether to actually add the game
+
     if 'message' in data:
         print(f'Game {game_code} does not exist.')
         return 0 ## this occurs when the game can't be found (e.g. non-existent game code)
@@ -155,23 +157,30 @@ def add_boxscore_to_db(season, season_segment, game_number, conn, cursor):
         return 0 ## this occurs when the game exists but hasn't yet been completed
 
     elif (pd.read_sql("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'boxscore'", conn).shape[0] > 0):
-        if (pd.read_sql_query(f'SELECT * from boxscore WHERE game_id = {game_code}', conn).shape[0] > 0):
+        if (pd.read_sql_query(f'SELECT * from boxscore WHERE game_id = {game_code}', conn).shape[0] > 0): # can only run this if the table exists
             print(f'Game {game_code} already exists in the database.')
             return 1 ## this occurs when the game already exists in the database
 
         else: ## in this case we actually add the game
-            sleep(1)
-            print(f'Game {game_code} added to database.')
-            dict_data = extract_boxscore_data(data)
+            add_game = True
 
-            ## add data
-            execute_query(PATH_QUERIES/'create_table_boxscore', cursor)
-            execute_query(PATH_QUERIES/'insert_entry_boxscore', cursor,
-                          values = tuple(dict_data.values()),
-                          replacements = {'xkeysx' : ', '.join(list(dict_data.keys())), 'xvaluesx' : ', '.join(['?'] * len(dict_data.keys()))})
-            conn.commit()
+    else:
+        add_game = True
 
-            return 1
+    if add_game:
+
+        sleep(1)
+        print(f'Game {game_code} added to database.')
+        dict_data = extract_boxscore_data(data)
+
+        ## add data
+        execute_query(PATH_QUERIES/'create_table_boxscore', cursor)
+        execute_query(PATH_QUERIES/'insert_entry_boxscore', cursor,
+                      values = tuple(dict_data.values()),
+                      replacements = {'xkeysx' : ', '.join(list(dict_data.keys())), 'xvaluesx' : ', '.join(['?'] * len(dict_data.keys()))})
+        conn.commit()
+
+        return 1
 
 
 ## SCRIPT ##
@@ -204,7 +213,7 @@ if __name__ == "__main__":
                     game_number += 1
                     game_num = '0' + str(round) + str(series) + str(game_number) ## game id more complex for playoffs than reg seson
                     cont = add_boxscore_to_db(season, 3, game_num, conn, cursor)
-                    if cont: print(season, game_num)
+                    if cont:
                 if game_number > 1:
                     cont = True
 
