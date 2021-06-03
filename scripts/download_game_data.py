@@ -213,7 +213,6 @@ if __name__ == "__main__":
                     game_number += 1
                     game_num = '0' + str(round) + str(series) + str(game_number) ## game id more complex for playoffs than reg seson
                     cont = add_boxscore_to_db(season, 3, game_num, conn, cursor)
-                    if cont:
                 if game_number > 1:
                     cont = True
 
